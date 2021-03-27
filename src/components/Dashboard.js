@@ -3,12 +3,13 @@ import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
-// import {getLeagues} from "../contexts/NBAContext"
+// import { getPlayerStatistics } from "../contexts/NBAContext"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const [ userData, setUserData ] = useState({})
+  // const [ teams, setTeams ] = useState([])
   const history = useHistory()
 
   async function handleLogout() {
@@ -28,13 +29,16 @@ export default function Dashboard() {
       setUserData(document.data())
     });
   }
-  async function getLeagueData(){
-
-  }
+  // async function getTeamsData(){
+  //   // console.log(await getTeams())
+  //   let teams = await getPlayerStatistics(2563)
+  //   setTeams(teams)
+  //   // console.log(teams)
+  // }
 
   useEffect(() => {
     getUserdata()
-    getLeagueData()
+    // getTeamsData()
   },[])
 
   return (
@@ -47,7 +51,11 @@ export default function Dashboard() {
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Atualizar Perfil
           </Link>
-          <Card>{userData.id}</Card>
+          {/* {teams.map((team, i) => {     
+          //  console.log(team, i);                 
+           // Return the element. Also pass key     
+           return (<Card>{team.playerId + ', ' + team.points}</Card>) 
+        })}  */}
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">

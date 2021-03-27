@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+// import Select from "react-select"
+// import {NBATeams} from "./ComboOptions"
 
 export default function Signup() {
   const emailRef = useRef()
@@ -11,7 +13,8 @@ export default function Signup() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-
+  // const [teamNBA, setTeamNBA] = useState(null)
+  // const [valueTeamNBA, setValueTeamNBA] = useState(null)
   // const drop = ['eu', 'tu'];
 
   async function handleSubmit(e) {
@@ -33,6 +36,12 @@ export default function Signup() {
     setLoading(false)
   }
 
+  // handleNBATeam = selectedOption => {
+  //   setTeamNBA(selectedOption);
+  //   setValueTeamNBA(selectedOption.value);
+  // }
+            
+
   return (
     <>
       <Card>
@@ -52,7 +61,15 @@ export default function Signup() {
               <Form.Label>Confirmação da Senha</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            {/* <Dropdown.menu></Dropdown.menu> */}
+            {/* <Form.Group>
+              <Form.Label>NBA</Form.Label>
+              <Select
+                placeholder="Time favorito"
+                value={teamNBA}
+                onChange={this.handleNBATeam}
+                options={NBATeams}
+              />
+            </Form.Group> */}
             <Button disabled={loading} className="w-100" type="submit">
               Criar Conta
             </Button>
