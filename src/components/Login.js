@@ -30,27 +30,29 @@ export default function Login() {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Entrar</h2>
+          <h2 className="text-center mb-4" >Entrar</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Label>E-mail</Form.Label>
+              <Form.Control placeholder="insira seu e-mail" type="email" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Senha</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <Form.Control placeholder="insira sua senha" type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Entrar
-            </Button>
+            <div className="text-center">
+              <Button disabled={loading} className="w-40 btn-lg" type="submit">
+                Entrar
+              </Button>
+            </div>
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">Esqueceu a senha?</Link>
           </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div className="w-100 text-center mt-2 text-white" >
         Não tem conta? <Link to="/signup">Cadastre-se</Link>
       </div>
     </>
