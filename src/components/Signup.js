@@ -27,7 +27,7 @@ export default function Signup() {
     try {
       setError("")
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await signup(emailRef.current.value, passwordRef.current.value, teamNBA)
       history.push("/")
     } catch {
       setError("Failed to create an account")
@@ -38,6 +38,7 @@ export default function Signup() {
 
   const handleNBATeam = (e) => {
     setTeamNBA(e)
+    // console.log(teamNBA)
   }            
 
   return (

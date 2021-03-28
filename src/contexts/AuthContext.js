@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
-  function signup(email, password) {
+  function signup(email, password, teamNBA) {
     return auth.createUserWithEmailAndPassword(email, password)
     .then((response) => {
       console.log(response)
@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
       const data = {
         id: uid,
         email,
+        teamNBA
       };
       const usersRef = firestore.collection("users");
       usersRef
