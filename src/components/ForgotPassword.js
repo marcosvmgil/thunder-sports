@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
+import Navbar from "react-bootstrap/Navbar";
 
 export default function ForgotPassword() {
   const emailRef = useRef()
@@ -28,6 +29,22 @@ export default function ForgotPassword() {
 
   return (
     <>
+    <Navbar
+        style={{ background: "#7C7878" }}
+        fixed="top"
+      >
+        <Navbar.Brand>
+          <Link to="/login">
+            <img
+              src="../../public/logo.png"
+              width="75"
+              height="30"
+              className="d-inline-block align-top"
+              alt="ThundeSports logo"
+            />
+          </Link>
+        </Navbar.Brand>
+      </Navbar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Recuperar Senha</h2>

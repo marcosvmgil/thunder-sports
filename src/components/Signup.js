@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap"
+import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import Select from "react-select"
@@ -43,6 +44,22 @@ export default function Signup() {
 
   return (
     <>
+    <Navbar
+        style={{ background: "#7C7878" }}
+        fixed="top"
+      >
+        <Navbar.Brand>
+          <Link to="/login">
+            <img
+              src="../../public/logo.png"
+              width="75"
+              height="30"
+              className="d-inline-block align-top"
+              alt="ThundeSports logo"
+            />
+          </Link>
+        </Navbar.Brand>
+      </Navbar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Criar Conta</h2>

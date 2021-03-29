@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
+import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
-// import { getPlayerStatistics } from "../contexts/NBAContext"
+// import { getPlayersDetails } from "../contexts/NFLContext"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
@@ -29,20 +30,36 @@ export default function Dashboard() {
       setUserData(document.data())
     });
   }
-  // async function getTeamsData(){
+  // async function getPlayersData(){
   //   // console.log(await getTeams())
-  //   let teams = await getPlayerStatistics(2563)
+  //   let teams = await getPlayersDetails()
   //   setTeams(teams)
-  //   // console.log(teams)
+  //   console.log(teams)
   // }
 
   useEffect(() => {
     getUserdata()
-    // getTeamsData()
+    // getPlayersData()
   },[])
 
   return (
     <>
+    <Navbar
+        style={{ background: "#7C7878" }}
+        fixed="top"
+      >
+        <Navbar.Brand>
+          <Link to="/">
+            <img
+              src="../../public/logo.png"
+              width="75"
+              height="30"
+              className="d-inline-block align-top"
+              alt="ThundeSports logo"
+            />
+          </Link>
+        </Navbar.Brand>
+      </Navbar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Perfil</h2>
