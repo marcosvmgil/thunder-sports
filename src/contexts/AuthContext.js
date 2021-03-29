@@ -70,6 +70,33 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function setCurrentUserGoogle(user){
+    setCurrentUser(user);
+    const uid = user.uid;
+    const email = user.email;
+    const teamNBA = {};
+    const data = {
+      id: uid,
+      email,
+      teamNBA
+    };
+
+    const usersRef = firestore.collection("users");
+    usersRef
+      .doc(uid)
+      .set(data)
+      // .then(() => {
+      //   navigation.navigate("MenuDrawer", {
+      //     screen: "MenuDrawer",
+      //     params: { user: data },
+      //   });
+      // })
+      .catch((error) => {
+        alert(error);
+      });
+
+  }
+
   function logout() {
     return auth.signOut()
   }
@@ -102,7 +129,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
+    setCurrentUserGoogle
   }
 
   return (

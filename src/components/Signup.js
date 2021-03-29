@@ -24,11 +24,22 @@ export default function Signup() {
   }
 
   
-  // useEffect(() => {
-  //   const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
-  //     setCurrentUser(currentUser)
-  //   })
-  // })
+  useEffect(() => {
+    const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
+      setCurrentUser(currentUser)
+      if (currentUser !== null){
+        try {
+          setError("")
+          setLoading(true)
+          setCurrentUserGoogle(currentUser);
+          history.push("/")
+        } catch {
+          setError("Falha ao criar a conta")
+        }
+        setLoading(false)
+      }
+    })
+  })
 
   
 
@@ -36,19 +47,18 @@ export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
+  const { signup, setCurrentUserGoogle } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
   const [teamNBA, setTeamNBA] = useState("")
-  const [valueTeamNBA, setValueTeamNBA] = useState(null)
-  // const drop = ['eu', 'tu'];
+  const [currentUser, setCurrentUser] = useState(null)
 
   async function handleSubmit(e) {
     e.preventDefault()
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+      return setError("Senhas são diferentes")
     }
 
     try {
@@ -57,7 +67,7 @@ export default function Signup() {
       await signup(emailRef.current.value, passwordRef.current.value, teamNBA)
       history.push("/")
     } catch {
-      setError("Failed to create an account")
+      setError("Falha ao criar a conta")
     }
 
     setLoading(false)
