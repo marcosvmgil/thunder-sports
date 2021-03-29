@@ -1,12 +1,38 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap"
 import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import Select from "react-select"
 import {NBATeams} from "./ComboOptions"
+import firebase from "firebase/app"
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+
 
 export default function Signup() {
+  // não sei aonde colocar, tem que fazer um hook do currentUser do AuthContext"
+  var uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => {
+        return false;
+      }
+    }
+  }
+
+  
+  // useEffect(() => {
+  //   const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
+  //     setCurrentUser(currentUser)
+  //   })
+  // })
+
+  
+
+  // **********************************
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -98,10 +124,13 @@ export default function Signup() {
             <Button disabled={loading} className="w-100" type="submit">
               Criar Conta
             </Button>
+            {/*Ui Login do google*/}
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            {/**/}
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div className="w-100 text-center mt-2 text-white">
         Já tem uma conta? <Link to="/login">Entre</Link>
       </div>
     </>
