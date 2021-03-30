@@ -9,7 +9,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, setCurrentUserGoogle } = useAuth();
+  const { login, signinGoogle } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null)
@@ -51,7 +51,7 @@ export default function Login() {
         try {
           setError("")
           setLoading(true)
-          setCurrentUserGoogle(currentUser);
+          signinGoogle(currentUser);
           history.push("/")
         } catch {
           setError("Falha ao criar a conta")

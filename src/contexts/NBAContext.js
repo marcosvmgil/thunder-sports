@@ -31,6 +31,37 @@ export async function getTeamsByLeague(league){
   return response.teams
 }
 
+export async function getTeamsById(teamId){
+  var options = {
+    method: 'GET',
+    url: `https://api-nba-v1.p.rapidapi.com/teams/teamId/${teamId}`,
+    headers: {
+      'x-rapidapi-key': '7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858',
+      'x-rapidapi-host': 'api-nba-v1.p.rapidapi.com'
+    }
+  };
+
+  let response = await getFromApi(options)
+  console.log(response.teams[0])
+  console.log(response.teams[0] !== undefined)
+  if (response.teams[0] !== undefined) {
+    if (response.teams[0].teamId !== teamId){
+      console.log("else 1")
+      return {}
+    }
+    else{
+      console.log("certo")
+      return response.teams[0]
+    }
+  }
+  else {
+    console.log("else 2")
+    return {}
+  }
+  
+}
+
+
 export async function getPlayersByTeamId(teamId){
   var options = {
     method: 'GET',

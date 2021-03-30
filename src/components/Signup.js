@@ -1,87 +1,83 @@
-import React, { useRef, useState, useEffect } from "react"
-import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap"
+import React, { useRef, useState, useEffect } from "react";
+import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
-import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
-import Select from "react-select"
-import {NBATeams} from "./ComboOptions"
-import firebase from "firebase/app"
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom";
+import Select from "react-select";
+import { NBATeams } from "./ComboOptions";
+import firebase from "firebase/app";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { getTeamsById } from "../contexts/NBAContext";
 
 export default function Signup() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const { signup, setCurrentUserGoogle } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
-  const [teamNBA, setTeamNBA] = useState("")
-  const [currentUser, setCurrentUser] = useState(null)
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const { signup, signupGoogle } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const [teamNBA, setTeamNBA] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Senhas são diferentes")
+      return setError("Senhas são diferentes");
     }
 
     try {
-      setError("")
-      setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value, teamNBA)
-      history.push("/")
+      // console.log(teamNBA.value)
+      let NBATeam = await getTeamsById(teamNBA.value);
+      // console.log(NBATeam)
+      setError("");
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value, NBATeam);
+      history.push("/");
     } catch {
-      setError("Falha ao criar a conta")
+      setError("Falha ao criar a conta");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   const handleNBATeam = (e) => {
-    setTeamNBA(e)
+    setTeamNBA(e);
     // console.log(teamNBA)
-  }            
+  };
 
   let uiConfig = {
-    signInFlow: 'popup',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ],
+    signInFlow: "popup",
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
       signInSuccessWithAuthResult: () => {
         return false;
-      }
-    }
-  }
+      },
+    },
+  };
 
-  
   useEffect(() => {
     const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
-      setCurrentUser(currentUser)
-      if (currentUser !== null){
+      setCurrentUser(currentUser);
+      if (currentUser !== null) {
         try {
-          setError("")
-          setLoading(true)
-          setCurrentUserGoogle(currentUser);
-          history.push("/")
+          setError("");
+          setLoading(true);
+          let NBATeam = getTeamsById(teamNBA.value);
+          signupGoogle(currentUser, NBATeam);
+          history.push("/");
         } catch {
-          setError("Falha ao criar a conta")
+          setError("Falha ao criar a conta");
         }
-        setLoading(false)
+        setLoading(false);
       }
-    })
-  })
+    });
+  });
 
-
-  
   return (
     <>
-    <Navbar
-        style={{ background: "#7C7878" }}
-        fixed="top"
-      >
+      <Navbar style={{ background: "#7C7878" }} fixed="top">
         <Navbar.Brand>
           <Link to="/login">
             <img
@@ -133,7 +129,10 @@ export default function Signup() {
               Criar Conta
             </Button>
             {/*Ui Login do google*/}
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
             {/**/}
           </Form>
         </Card.Body>
@@ -142,5 +141,5 @@ export default function Signup() {
         Já tem uma conta? <Link to="/login">Entre</Link>
       </div>
     </>
-  )
+  );
 }
