@@ -8,6 +8,7 @@ import { NBATeams } from "./ComboOptions";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { getTeamsById } from "../contexts/NBAContext";
+import logo from '../images/logo.png';
 
 export default function Signup() {
   const emailRef = useRef();
@@ -77,13 +78,13 @@ export default function Signup() {
 
   return (
     <>
-      <Navbar style={{ background: "#7C7878" }} fixed="top">
+      <Navbar style={{ background: "white" }} fixed="top">
         <Navbar.Brand>
           <Link to="/login">
             <img
-              src="../../public/logo.png"
-              width="75"
-              height="30"
+              src={logo}
+              width="200"
+              height="70"
               className="d-inline-block align-top"
               alt="ThundeSports logo"
             />

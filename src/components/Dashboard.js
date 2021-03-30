@@ -46,7 +46,7 @@ export default function Dashboard() {
   return (
     <>
     <Navbar
-        style={{ background: "#7C7878" }}
+        style={{ background: "white" }}
         fixed="top"
       >
         <Navbar.Brand>

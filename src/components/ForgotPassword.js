@@ -1,44 +1,42 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link } from "react-router-dom"
+import React, { useRef, useState } from "react";
+import { Form, Button, Card, Alert } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
+import logo from '../images/logo.png';
 
 export default function ForgotPassword() {
-  const emailRef = useRef()
-  const { resetPassword } = useAuth()
-  const [error, setError] = useState("")
-  const [message, setMessage] = useState("")
-  const [loading, setLoading] = useState(false)
+  const emailRef = useRef();
+  const { resetPassword } = useAuth();
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      setMessage("")
-      setError("")
-      setLoading(true)
-      await resetPassword(emailRef.current.value)
-      setMessage("Cheque seu email para mais instruções")
+      setMessage("");
+      setError("");
+      setLoading(true);
+      await resetPassword(emailRef.current.value);
+      setMessage("Cheque seu email para mais instruções");
     } catch {
-      setError("Falha ao tentar recuperar a senha")
+      setError("Falha ao tentar recuperar a senha");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
     <>
-    <Navbar
-        style={{ background: "#7C7878" }}
-        fixed="top"
-      >
+      <Navbar style={{ background: "white" }} fixed="top">
         <Navbar.Brand>
           <Link to="/login">
             <img
-              src="../../public/logo.png"
-              width="75"
-              height="30"
+              src={logo}
+              width="200"
+              height="70"
               className="d-inline-block align-top"
               alt="ThundeSports logo"
             />
@@ -56,7 +54,7 @@ export default function ForgotPassword() {
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
-               Recuperar Senha
+              Recuperar Senha
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
@@ -65,8 +63,8 @@ export default function ForgotPassword() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-         Não tem conta? <Link to="/signup">Cadastre-se</Link>
+        Não tem conta? <Link to="/signup">Cadastre-se</Link>
       </div>
     </>
-  )
+  );
 }
