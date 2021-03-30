@@ -10,40 +10,6 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 
 export default function Signup() {
-  // não sei aonde colocar, tem que fazer um hook do currentUser do AuthContext"
-  var uiConfig = {
-    signInFlow: 'popup',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: () => {
-        return false;
-      }
-    }
-  }
-
-  
-  useEffect(() => {
-    const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
-      setCurrentUser(currentUser)
-      if (currentUser !== null){
-        try {
-          setError("")
-          setLoading(true)
-          setCurrentUserGoogle(currentUser);
-          history.push("/")
-        } catch {
-          setError("Falha ao criar a conta")
-        }
-        setLoading(false)
-      }
-    })
-  })
-
-  
-
-  // **********************************
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -78,6 +44,38 @@ export default function Signup() {
     // console.log(teamNBA)
   }            
 
+  let uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => {
+        return false;
+      }
+    }
+  }
+
+  
+  useEffect(() => {
+    const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
+      setCurrentUser(currentUser)
+      if (currentUser !== null){
+        try {
+          setError("")
+          setLoading(true)
+          setCurrentUserGoogle(currentUser);
+          history.push("/")
+        } catch {
+          setError("Falha ao criar a conta")
+        }
+        setLoading(false)
+      }
+    })
+  })
+
+
+  
   return (
     <>
     <Navbar

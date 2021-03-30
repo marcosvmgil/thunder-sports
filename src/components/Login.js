@@ -1,15 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
+  const { login, setCurrentUserGoogle } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null)
+
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -21,18 +25,45 @@ export default function Login() {
       await login(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch {
-      setError("Failed to log in");
+      setError("Falha ao logar");
     }
 
     setLoading(false);
   }
 
+  let uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => {
+        return false;
+      }
+    }
+  }
+
+  
+  useEffect(() => {
+    const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
+      setCurrentUser(currentUser)
+      if (currentUser !== null){
+        try {
+          setError("")
+          setLoading(true)
+          setCurrentUserGoogle(currentUser);
+          history.push("/")
+        } catch {
+          setError("Falha ao criar a conta")
+        }
+        setLoading(false)
+      }
+    })
+  })
+
   return (
     <>
-      <Navbar
-        style={{ background: "#7C7878" }}
-        fixed="top"
-      >
+      <Navbar style={{ background: "#7C7878" }} fixed="top">
         <Navbar.Brand>
           <Link to="/login">
             <img
@@ -73,6 +104,12 @@ export default function Login() {
                 Entrar
               </Button>
             </div>
+            {/*Ui Login do google*/}
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+            {/**/}
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">Esqueceu a senha?</Link>
