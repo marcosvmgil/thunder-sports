@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
+import logo from '../images/logo.png';
 // import { getPlayersDetails } from "../contexts/NFLContext"
 
 export default function Dashboard() {
@@ -51,9 +52,9 @@ export default function Dashboard() {
         <Navbar.Brand>
           <Link to="/">
             <img
-              src="../../public/logo.png"
-              width="75"
-              height="30"
+              src={logo}
+              width="200"
+              height="70"
               className="d-inline-block align-top"
               alt="ThundeSports logo"
             />

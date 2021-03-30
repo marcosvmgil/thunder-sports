@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import logo from '../images/logo.png';
 
 export default function Login() {
   const emailRef = useRef();
@@ -63,13 +64,13 @@ export default function Login() {
 
   return (
     <>
-      <Navbar style={{ background: "#7C7878" }} fixed="top">
+      <Navbar style={{ background: "white" }} fixed="top">
         <Navbar.Brand>
           <Link to="/login">
             <img
-              src="../../public/logo.png"
-              width="75"
-              height="30"
+              src={logo}
+              width="200"
+              height="70"
               className="d-inline-block align-top"
               alt="ThundeSports logo"
             />
