@@ -8,12 +8,16 @@ O usuário poderá seguir seus times favoritos, ligas favoritas, estatisticas de
 
 No diretório do projeto, você pode executar:
 
-### `npm start`
+### `npm run dev`
 
 Executa o aplicativo no modo de desenvolvimento. <br />
 Abra [http: // localhost: 3000] (http: // localhost: 3000) para visualizá-lo no navegador.
 
 A página será recarregada se você fizer edições. <br />
+
+### `npm start`
+
+Executa o aplicativo no modo servidor. <br />
 
 ### `npm run build`
 
@@ -36,13 +40,16 @@ The user will be able to follow his favorite teams, favorite leagues, game stati
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 
+### `npm start`
+
+Runs the app in the server mode.<br />
 
 ### `npm run build`
 
