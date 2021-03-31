@@ -4,7 +4,6 @@ import NavBar from "./NavBar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
-
 // import { getPlayersDetails } from "../contexts/NFLContext"
 
 export default function Dashboard() {
@@ -31,16 +30,16 @@ export default function Dashboard() {
       setUserData(document.data())
     });
   }
-  // async function getPlayersData(){
+  // async function getTeamsAux(){
   //   // console.log(await getTeams())
-  //   let teams = await getPlayersDetails()
-  //   setTeams(teams)
-  //   console.log(teams)
+  //   let teamsaux = await getCircuitByCompetitionId('22')
+  //   console.log(teamsaux)
+  //   setTeams(teamsaux)
   // }
 
   useEffect(() => {
     getUserdata()
-    // getPlayersData()
+    // getTeamsAux()
   },[])
 
   return (
