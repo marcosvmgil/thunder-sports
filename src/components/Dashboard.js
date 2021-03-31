@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
-import Navbar from "react-bootstrap/Navbar";
+import NavBar from "./NavBar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
-import logo from '../images/logo.png';
-// import { getCircuitByCompetitionId } from "../contexts/F1Context"
+// import { getPlayersDetails } from "../contexts/NFLContext"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
@@ -45,22 +44,7 @@ export default function Dashboard() {
 
   return (
     <>
-    <Navbar
-        style={{ background: "white" }}
-        fixed="top"
-      >
-        <Navbar.Brand>
-          <Link to="/">
-            <img
-              src={logo}
-              width="200"
-              height="70"
-              className="d-inline-block align-top"
-              alt="ThundeSports logo"
-            />
-          </Link>
-        </Navbar.Brand>
-      </Navbar>
+     <NavBar></NavBar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Perfil</h2>

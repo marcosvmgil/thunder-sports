@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert, Dropdown } from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
+import NavBar from "./NavBar";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Select from "react-select";
@@ -8,7 +8,7 @@ import { NBATeams } from "./ComboOptions";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { getTeamsById } from "../contexts/NBAContext";
-import logo from '../images/logo.png';
+
 
 export default function Signup() {
   const emailRef = useRef();
@@ -78,19 +78,7 @@ export default function Signup() {
 
   return (
     <>
-      <Navbar style={{ background: "white" }} fixed="top">
-        <Navbar.Brand>
-          <Link to="/login">
-            <img
-              src={logo}
-              width="200"
-              height="70"
-              className="d-inline-block align-top"
-              alt="ThundeSports logo"
-            />
-          </Link>
-        </Navbar.Brand>
-      </Navbar>
+      <NavBar></NavBar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Criar Conta</h2>

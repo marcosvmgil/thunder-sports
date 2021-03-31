@@ -11,7 +11,7 @@ No diretório do projeto, você pode executar:
 ### `npm run dev`
 
 Executa o aplicativo no modo de desenvolvimento. <br />
-Abra [http: // localhost: 3000] (http: // localhost: 3000) para visualizá-lo no navegador.
+Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
 A página será recarregada se você fizer edições. <br />
 

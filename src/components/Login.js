@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import logo from '../images/logo.png';
+import NavBar from "./NavBar";
 
 export default function Login() {
   const emailRef = useRef();
@@ -64,19 +64,7 @@ export default function Login() {
 
   return (
     <>
-      <Navbar style={{ background: "white" }} fixed="top">
-        <Navbar.Brand>
-          <Link to="/login">
-            <img
-              src={logo}
-              width="200"
-              height="70"
-              className="d-inline-block align-top"
-              alt="ThundeSports logo"
-            />
-          </Link>
-        </Navbar.Brand>
-      </Navbar>
+      <NavBar></NavBar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Entrar</h2>
