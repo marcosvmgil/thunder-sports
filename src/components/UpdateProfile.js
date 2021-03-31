@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
-import Navbar from "react-bootstrap/Navbar";
+import NavBar from "./NavBar";
 import { Link, useHistory } from "react-router-dom"
+import logo from '../images/logo.png';
 
 export default function UpdateProfile() {
   const emailRef = useRef()
@@ -44,22 +45,7 @@ export default function UpdateProfile() {
 
   return (
     <>
-        <Navbar
-        style={{ background: "#7C7878" }}
-        fixed="top"
-      >
-        <Navbar.Brand>
-          <Link to="/">
-            <img
-              src="../../public/logo.png"
-              width="75"
-              height="30"
-              className="d-inline-block align-top"
-              alt="ThundeSports logo"
-            />
-          </Link>
-        </Navbar.Brand>
-      </Navbar>
+      <NavBar></NavBar>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Atualizar Perfil</h2>
