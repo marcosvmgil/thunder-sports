@@ -1,7 +1,8 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
-import * as firebaseui from 'firebaseui/dist/npm__pt_br'
+// import * as firebaseui from 'firebaseui/dist/npm__pt_br'
+import * as firebaseui from 'firebaseui'
 
 
 
