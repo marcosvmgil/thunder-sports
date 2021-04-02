@@ -1,6 +1,9 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
+import * as firebaseui from 'firebaseui/dist/npm__pt_br'
+
+
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyDV9LLH3Pwb6QiFWWnfGe-FiKzTdhxUEKs",
@@ -14,4 +17,5 @@ const app = firebase.initializeApp({
 
 export const firestore = firebase.firestore();
 export const auth = app.auth()
+export const authUI = new firebaseui.auth.AuthUI(auth)
 export default app

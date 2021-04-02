@@ -6,7 +6,8 @@ import { Link, useHistory } from "react-router-dom";
 import Select from "react-select";
 import { NBATeams } from "./ComboOptions";
 import firebase from "firebase/app";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { auth, authUI } from "../firebase";
+// import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { getTeamsById } from "../contexts/NBAContext";
 
 
@@ -47,6 +48,23 @@ export default function Signup() {
     setTeamNBA(e);
     // console.log(teamNBA)
   };
+
+  auth.onAuthStateChanged((currentUser) => setCurrentUser(currentUser))
+
+  useEffect(() => {
+    if (!currentUser) {
+      authUI.start(".google-login", {
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+        signInFlow: 'popup',
+        callbacks: {
+          signInSuccessWithAuthResult: () => {
+            return false;
+          }
+        }
+      })
+    }
+  }, [currentUser])
 
   let uiConfig = {
     signInFlow: "popup",
@@ -117,12 +135,11 @@ export default function Signup() {
             <Button disabled={loading} className="w-100" type="submit">
               Criar Conta
             </Button>
-            {/*Ui Login do google*/}
-            <StyledFirebaseAuth
+            {/* <StyledFirebaseAuth
               uiConfig={uiConfig}
               firebaseAuth={firebase.auth()}
-            />
-            {/**/}
+            />  */}
+            <div className="google-login"></div>
           </Form>
         </Card.Body>
       </Card>

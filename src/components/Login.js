@@ -3,9 +3,12 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import logo from '../images/logo.png';
 import NavBar from "./NavBar";
+import { auth, authUI } from "../firebase";
+
+
 
 export default function Login() {
   const emailRef = useRef();
@@ -16,6 +19,8 @@ export default function Login() {
   const [currentUser, setCurrentUser] = useState(null)
 
   const history = useHistory();
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,23 +37,39 @@ export default function Login() {
     setLoading(false);
   }
 
-  let uiConfig = {
-    signInFlow: 'popup',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: () => {
-        return false;
-      }
-    }
-  }
+  // let uiConfig = {
+  //   signInOptions: [
+  //     firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  //   signInFlow: 'popup',
+  //   callbacks: {
+  //     signInSuccessWithAuthResult: () => {
+  //       return false;
+  //     }
+  //   }
+  // }
 
-  
+  auth.onAuthStateChanged((currentUser) => setCurrentUser(currentUser))
+
+  useEffect(() => {
+    if (!currentUser) {
+      authUI.start(".google-login", {
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+        signInFlow: 'popup',
+        callbacks: {
+          signInSuccessWithAuthResult: () => {
+            return false;
+          }
+        }
+      })
+    }
+  }, [currentUser])
+
+
   useEffect(() => {
     const authObserver = firebase.auth().onAuthStateChanged((currentUser) => {
       setCurrentUser(currentUser)
-      if (currentUser !== null){
+      if (currentUser !== null) {
         try {
           setError("")
           setLoading(true)
@@ -93,12 +114,12 @@ export default function Login() {
                 Entrar
               </Button>
             </div>
-            {/*Ui Login do google*/}
-            <StyledFirebaseAuth
+            <div className="google-login"></div>
+            {/* <StyledFirebaseAuth
+              uiCallback={ui => ui.setConfig}
               uiConfig={uiConfig}
               firebaseAuth={firebase.auth()}
-            />
-            {/**/}
+            /> */}
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">Esqueceu a senha?</Link>
