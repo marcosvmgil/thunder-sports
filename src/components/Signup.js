@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import Select from "react-select";
 import { NBATeams } from "./ComboOptions";
 import firebase from "firebase/app";
-import { auth, authUI } from "../firebase";
+import { auth } from "../firebase";
 // import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { getTeamsById } from "../contexts/NBAContext";
 
@@ -51,20 +51,20 @@ export default function Signup() {
 
   auth.onAuthStateChanged((currentUser) => setCurrentUser(currentUser))
 
-  useEffect(() => {
-    if (!currentUser) {
-      authUI.start(".google-login", {
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-        signInFlow: 'popup',
-        callbacks: {
-          signInSuccessWithAuthResult: () => {
-            return false;
-          }
-        }
-      })
-    }
-  }, [currentUser])
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     authUI.start(".google-login", {
+  //       signInOptions: [
+  //         firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  //       signInFlow: 'popup',
+  //       callbacks: {
+  //         signInSuccessWithAuthResult: () => {
+  //           return false;
+  //         }
+  //       }
+  //     })
+  //   }
+  // }, [currentUser])
 
   let uiConfig = {
     signInFlow: "popup",

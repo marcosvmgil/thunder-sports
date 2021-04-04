@@ -6,7 +6,7 @@ import firebase from "firebase/app";
 // import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import logo from '../images/logo.png';
 import NavBar from "./NavBar";
-import { auth, authUI } from "../firebase";
+import { auth } from "../firebase";
 
 
 
@@ -37,33 +37,33 @@ export default function Login() {
     setLoading(false);
   }
 
-  // let uiConfig = {
-  //   signInOptions: [
-  //     firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-  //   signInFlow: 'popup',
-  //   callbacks: {
-  //     signInSuccessWithAuthResult: () => {
-  //       return false;
-  //     }
-  //   }
-  // }
+  let uiConfig = {
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInFlow: 'popup',
+    callbacks: {
+      signInSuccessWithAuthResult: () => {
+        return false;
+      }
+    }
+  }
 
   auth.onAuthStateChanged((currentUser) => setCurrentUser(currentUser))
 
-  useEffect(() => {
-    if (!currentUser) {
-      authUI.start(".google-login", {
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-        signInFlow: 'popup',
-        callbacks: {
-          signInSuccessWithAuthResult: () => {
-            return false;
-          }
-        }
-      })
-    }
-  }, [currentUser])
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     authUI.start(".google-login", {
+  //       signInOptions: [
+  //         firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  //       signInFlow: 'popup',
+  //       callbacks: {
+  //         signInSuccessWithAuthResult: () => {
+  //           return false;
+  //         }
+  //       }
+  //     })
+  //   }
+  // }, [currentUser])
 
 
   useEffect(() => {
