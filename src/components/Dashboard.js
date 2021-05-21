@@ -4,13 +4,11 @@ import NavBar from "./NavBar";
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firestore } from "../firebase"
-// import { getPlayersDetails } from "../contexts/NFLContext"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const [ userData, setUserData ] = useState({})
-  // const [ teams, setTeams ] = useState([])
   const history = useHistory()
 
   async function handleLogout() {
@@ -45,19 +43,25 @@ export default function Dashboard() {
   return (
     <>
      <NavBar></NavBar>
+     <div className="w-100" style={{ position: "relative", marginTop: "25vh", maxWidth: "400px", alignSelf: "center", marginLeft: "auto", marginRight: "auto" }}>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Perfil</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
+          {(userData.likeNBA && userData.NBATeam !== undefined) && (
+            <div>
+            <strong>Time NBA favorito:</strong> {userData.NBATeam.fullName}
+            </div>
+          )}
+          {(userData.likeF1 && userData.F1Team !== undefined) && (
+            <div>
+            <strong>Time F1 favorito:</strong> {userData.F1Team.name}
+            </div>
+          )}
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Atualizar Perfil
           </Link>
-          {/* {teams.map((team, i) => {     
-          //  console.log(team, i);                 
-           // Return the element. Also pass key     
-           return (<Card>{team.playerId + ', ' + team.points}</Card>) 
-        })}  */}
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
@@ -65,6 +69,7 @@ export default function Dashboard() {
           Deslogar
         </Button>
       </div>
+    </div>
     </>
   )
 }

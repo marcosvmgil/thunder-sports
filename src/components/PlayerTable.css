@@ -1,0 +1,28 @@
+.PlayerTable {
+    margin-top: 2px;
+    width: 100%;
+    padding: 2px;
+}
+
+.PlayerTable td{
+    border-bottom:1px solid #f1f2f3;
+    /* width: 33%; */
+}
+
+.PlayerTable th{
+    background-color: #3e98c7;
+    color: #fff;
+}
+
+.PlayerTable table{
+    width: 100%;
+    text-align: left;
+}
+
+.Par{
+    background-color: #fff;
+}
+
+.Impar{
+    background-color: #fafafa;
+}

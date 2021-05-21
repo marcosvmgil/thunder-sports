@@ -1,61 +1,103 @@
 var axios = require("axios").default;
 
-export async function getNextRace() {
+export async function getNextRace(next = 1, season = '2021') {
   //date in the format YYYY-MM-DD
-  let date = new Date();
+  // let date = new Date();
 
-  let day = date.getDay();
+  // let day = date.getDay();
 
-  let auxDate = 7 - day;
+  // let auxDate = 7 - day;
 
-  if (auxDate !== 7) {
-    date.setDate(date.getDate() + auxDate);
-  }
+  // if (auxDate !== 7) {
+  //   date.setDate(date.getDate() + auxDate);
+  // }
 
-  date = date.toISOString().split("T")[0];
+  // date = date.toISOString().split("T")[0];
+
+  // console.log('proxima: '+ date)
 
   var options = {
     method: "GET",
     url: `https://api-formula-1.p.rapidapi.com/races/`,
-    params: { season: "2021", date: `${date}` },
+    // params: { season: "2021", date: `${date}` },
+    params: { season: `${season}`, next: `${next}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
 
   let response = await getFromApi(options);
   //   console.log(response);
-
+  console.log(response)
   return response[0];
 }
 
-export async function getLastRace(season = "2021") {
+export async function getLastRace(last = 1, season = "2021") {
   //date in the format YYYY-MM-DD
-  let date = new Date();
+  // let date = new Date();
 
-  let day = date.getDay();
+  // let day = date.getDay();
 
-  date.setDate(date.getDate() - day);
+  // date.setDate(date.getDate() - day);
 
-  date = date.toISOString().split("T")[0];
+  // date = date.toISOString().split("T")[0];
 
-  //   console.log(date)
+  // //   console.log(date)
+  // console.log('anterior: '+ date)
 
   var options = {
     method: "GET",
     url: `https://api-formula-1.p.rapidapi.com/races/`,
-    params: { season: `${season}`, date: `${date}` },
+    // params: { season: `${season}`, date: `${date}` },
+    params: { season: `${season}`, last: `${last}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
 
   let response = await getFromApi(options);
-  console.log(response[0]);
-
+  // console.log(response[0]);
+  console.log(response)
   return response[0];
+}
+
+export async function getRaces(season) {
+  let last = '99';
+  // console.log(last);
+  // console.log(season);
+  var options = {
+    method: "GET",
+    url: `https://api-formula-1.p.rapidapi.com/races/`,
+    // params: { season: `${season}`, date: `${date}` },
+    params: { season: `${season}`,  last: `${last}` },
+    headers: {
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
+      "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
+    },
+  };
+
+  let response = await getFromApi(options);
+  // console.log(response[0]);
+  // console.log(response)
+
+  return response
 }
 
 export async function getLastRaceByDate(date, season = "2021") {
@@ -67,9 +109,14 @@ export async function getLastRaceByDate(date, season = "2021") {
   var options = {
     method: "GET",
     url: `https://api-formula-1.p.rapidapi.com/races/`,
-    params: { season: `${season}`, date: `${date}` },
+    params: { season: `${season}`, date: `${dateAux}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -87,7 +134,12 @@ export async function getTeamByName(name) {
     url: `https://api-formula-1.p.rapidapi.com/teams`,
     params: { search: `${name}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -104,15 +156,30 @@ export async function getTeamById(id) {
     url: `https://api-formula-1.p.rapidapi.com/teams`,
     params: { id: `${id}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
 
   let response = await getFromApi(options);
-  //   console.log(response);
+  console.log(typeof response[0]);
 
-  return response[0];
+  if (response[0] !== undefined) {
+    if (response[0].id.toString() !== id){
+      return {}
+    }
+    else{
+      return response[0]
+    }
+  }
+  else {
+    return {}
+  }
 }
 
 export async function getTeams() {
@@ -120,7 +187,12 @@ export async function getTeams() {
     method: "GET",
     url: `https://api-formula-1.p.rapidapi.com/teams`,
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -137,7 +209,12 @@ export async function getTeamsRanking(season = "2021") {
     url: `https://api-formula-1.p.rapidapi.com/rankings/teams`,
     params: { season: `${season}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -154,7 +231,12 @@ export async function getTeamRankingByTeamId(teamId, season = "2021") {
     url: `https://api-formula-1.p.rapidapi.com/rankings/teams`,
     params: { season: `${season}`, team: `${teamId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -165,13 +247,40 @@ export async function getTeamRankingByTeamId(teamId, season = "2021") {
   return response[0];
 }
 
+export async function getDriverRankings(season = "2021") {
+  const options = {
+    method: 'GET',
+    url: 'https://api-formula-1.p.rapidapi.com/rankings/drivers',
+    params: {season: `${season}`},
+    headers: {
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
+      'x-rapidapi-host': 'api-formula-1.p.rapidapi.com'
+    }
+  };
+  
+  let response = await getFromApi(options);
+  console.log(response);
+
+  return response;
+}
+
 export async function getDriverRankingByTeamId(teamId, season = "2021") {
   var options = {
     method: "GET",
     url: `https://api-formula-1.p.rapidapi.com/rankings/drivers`,
     params: { season: `${season}`, team: `${teamId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -188,7 +297,12 @@ export async function getDriverRankingByDriverId(driverId, season = "2021") {
     url: `https://api-formula-1.p.rapidapi.com/rankings/drivers`,
     params: { season: `${season}`, driver: `${driverId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -205,7 +319,12 @@ export async function getDriverRankingByRaceId(raceId) {
     url: `https://api-formula-1.p.rapidapi.com/rankings/races`,
     params: { race: `${raceId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -223,7 +342,12 @@ export async function getDriverByName(name) {
     url: `https://api-formula-1.p.rapidapi.com/drivers`,
     params: { search: `${name}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -241,7 +365,12 @@ export async function getCompetitionByName(name) {
     url: `https://api-formula-1.p.rapidapi.com/competitions`,
     params: { search: `${name}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -258,7 +387,12 @@ export async function getCompetitionByCountry(country) {
     url: `https://api-formula-1.p.rapidapi.com/competitions`,
     params: { country: `${country}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -275,7 +409,12 @@ export async function getCompetitionByCity(city) {
     url: `https://api-formula-1.p.rapidapi.com/competitions`,
     params: { city: `${city}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -293,7 +432,12 @@ export async function getCircuitByName(name) {
     url: `https://api-formula-1.p.rapidapi.com/circuits`,
     params: { search: `${name}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -310,7 +454,12 @@ export async function getCircuitById(circuitId) {
     url: `https://api-formula-1.p.rapidapi.com/circuits`,
     params: { id: `${circuitId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -327,7 +476,12 @@ export async function getCircuitByCompetitionId(competitionId) {
     url: `https://api-formula-1.p.rapidapi.com/circuits`,
     params: { competition: `${competitionId}` },
     headers: {
-      "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Marcos
+      // "x-rapidapi-key": "7e06e2fe93msh93a651f74b7e29fp17c6e7jsna95be08dc858",
+      //Breno
+      // "x-rapidapi-key": "9da0bcbfccmshfae2407a424a674p1094c2jsnb5a7ffefeda3",
+      //Jansen
+      'x-rapidapi-key': '494e8098dfmsh2ef5d42795ac609p1f597djsn25b24adb5322',
       "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
     },
   };
@@ -345,7 +499,7 @@ async function getFromApi(options) {
   await axios
     .request(options)
     .then(function (response) {
-      //   console.log(response.response);
+      // console.log(response);
       responseData = response.data.response;
     })
     .catch(function (error) {

@@ -30,27 +30,29 @@ export default function ForgotPassword() {
   return (
     <>
       <NavBar></NavBar>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Recuperar Senha</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Recuperar Senha
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Entrar</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Não tem conta? <Link to="/signup">Cadastre-se</Link>
+      <div className="w-100" style={{ position: "relative", marginTop: "25vh", maxWidth: "400px", alignSelf: "center", marginLeft: "auto", marginRight: "auto" }}>
+        <Card>
+          <Card.Body>
+            <h2 className="text-center mb-4">Recuperar Senha</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
+            {message && <Alert variant="success">{message}</Alert>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" ref={emailRef} required />
+              </Form.Group>
+              <Button disabled={loading} className="w-100" type="submit">
+                Recuperar Senha
+              </Button>
+            </Form>
+            <div className="w-100 text-center mt-3">
+              <Link to="/login">Entrar</Link>
+            </div>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
+          Não tem conta? <Link to="/signup">Cadastre-se</Link>
+        </div>
       </div>
     </>
   );

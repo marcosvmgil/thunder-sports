@@ -1,0 +1,124 @@
+.tabContainer, ::before, ::after { 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: .25rem;
+} 
+
+
+
+.tabContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    /* height: 100%; */
+    background: #f1f1f1;
+    margin: 100px auto 0;
+    word-break: break-all;
+    border: 1px solid rgba(0, 0, 0, 0.274);
+    /* border-radius: 10px; */
+  }
+  
+  .bloc-tabs {
+    display: flex;
+  }
+  .tabs {
+  
+    padding: 15px;
+    text-align: center;
+    width: 50%;
+    background: rgba(128, 128, 128, 0.075);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+    box-sizing: content-box;
+    position: relative;
+    outline: none;
+    border-radius: .25rem .25rem 0px 0px;
+  }
+  .tabs:not(:last-child){
+    border-right: 1px solid rgba(0, 0, 0, 0.274);
+  }
+  
+  .active-tabs  {
+    background: white;
+    border-bottom: 1px solid transparent;
+  }
+
+  .active-tabs::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 49px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 2px);
+    height: 5px;
+    background: rgb(88, 147, 241);
+  }
+  
+  
+ .tabContainer button {
+    border: none;
+    outline: 0;
+    
+  }
+
+  .tabContainer button:focus {
+    outline: 0;
+  }
+  
+  .content-tabs {
+    flex-grow : 1;
+  }
+  .content {
+    background: white;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    border-radius: 0px 0px .25rem .25rem;
+  }
+
+  .content h2 {
+    padding: 0px 0 5px 0px;
+    color: #000;
+  }
+
+  .content p {
+    width: 100%;
+    height: 100%;
+    color: #000;
+  }
+  .active-content {
+    display: block;
+  }
+
+  .ResultTable {
+    margin-top: 2px;
+    width: 100%;
+    padding: 2px;
+}
+
+.ResultTable td{
+    border-bottom:1px solid #f1f2f3;
+    /* width: 33%; */
+}
+
+.ResultTable th{
+    background-color: #3e98c7;
+    color: #fff;
+}
+
+.ResultTable table{
+    width: 100%;
+    text-align: left;
+}
+
+.Par{
+  background-color: #fff;
+}
+
+.Impar{
+  background-color: #fafafa;
+}

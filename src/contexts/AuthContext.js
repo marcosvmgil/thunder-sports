@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, firestore } from "../firebase";
+import firebase, { auth, firestore } from "../firebase";
 
 const AuthContext = React.createContext();
+
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -11,16 +13,16 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signup(email, password, teamNBA = {}) {
+  function signup(email, password) {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
         // console.log(response);
+        // console.log(response.user.uid);
         const uid = response.user.uid;
         const data = {
           id: uid,
           email,
-          teamNBA,
         };
         // console.log(data)
         const usersRef = firestore.collection("users");
@@ -57,47 +59,61 @@ export function AuthProvider({ children }) {
           });
       })
       .catch((error) => {
-        alert(error);
+        return(error);
+      });
+  }
+  
+  // async function loginGoogle() {
+  //   firebase.auth()
+  //     .signInWithPopup(googleProvider)
+  //     .then((response) => {
+  //       console.log(response)
+  //       const uid = response.user.uid;
+  //       const usersRef = firestore.collection("users");
+  //       usersRef
+  //         .doc(uid)
+  //         .get()
+  //         .then((firestoreDocument) => {
+  //           if (!firestoreDocument.exists) {
+  //             // alert("Usuário não existe mais.");
+  //             return;
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           alert(error);
+  //         })
+  //         }).catch((error) => {
+  //           console.log(error)
+  //         });
+  //     }
+
+  async function loginGoogle() {
+  
+    return firebase.auth()
+      .signInWithPopup(googleProvider)
+      .then((response) => {
+        console.log(response);
+        console.log(response.user.uid);
+        const uid = response.user.uid;
+        const email = response.user.email;
+        const data = {
+          id: uid,
+          email,
+          // teamNBA,
+        };
+        // var user = response.user;
+        const usersRef = firestore.collection("users");
+        usersRef
+          .doc(uid)
+          .set(data)
+          .catch((error) => {
+            console(error);
+          });
+      }).catch((error) => {
+        console.log(error)
       });
   }
 
-  async function signupGoogle(user, NBAteam) {
-    setCurrentUser(user);
-    const uid = user.uid;
-    const email = user.email;
-    const teamNBA = await NBAteam;
-    const data = {
-      id: uid,
-      email,
-      teamNBA,
-    };
-    // console.log(data)
-    const usersRef = firestore.collection("users");
-    usersRef
-      .doc(uid)
-      .set(data)
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
-  function signinGoogle(user) {
-    setCurrentUser(user);
-    const uid = user.uid;
-    const usersRef = firestore.collection("users");
-    usersRef
-      .doc(uid)
-      .get()
-      .then((firestoreDocument) => {
-        if (!firestoreDocument.exists) {
-          // alert("Usuário não existe mais.");
-          return;
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
 
   function logout() {
     return auth.signOut();
@@ -132,8 +148,7 @@ export function AuthProvider({ children }) {
     resetPassword,
     updateEmail,
     updatePassword,
-    signupGoogle,
-    signinGoogle
+    loginGoogle
   };
 
   return (

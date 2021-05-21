@@ -1,0 +1,32 @@
+
+.GoogleSignIn {
+  /* position:absolute; */
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  max-height: 40px;
+  border: none;
+	border-radius: 2px;
+	background-color: #4285f4;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12);
+  border: none;
+  display: flex;
+  padding: 1px;
+	color: #FFF;
+}
+
+.GoogleSignIn:hover{
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.GoogleSignIn:active {background: #3367D6;}
+
+.GoogleSignIntext {
+  padding: 11px;
+  /* font-family: "Roboto"; */
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.2px;
+	text-align: left;
+  white-space: nowrap;
+}
